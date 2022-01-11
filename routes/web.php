@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\SellerController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,6 +23,16 @@ Route::prefix('admin')->group(function () {
     Route::get('/logout', [AdminController::class, 'logout'])->name('admin.logout')->middleware('admin');
     Route::get('/register', [AdminController::class, 'registerShow'])->name('admin.register');
     Route::post('/register/create', [AdminController::class, 'register'])->name('admin.register.create');
+});
+
+// Seller Route
+Route::prefix('seller')->group(function () {
+    Route::get('/login', [SellerController::class, 'index'])->name('seller_login_from');
+    Route::post('/login/owner', [SellerController::class, 'login'])->name('seller.login');
+    Route::get('/dashboard', [SellerController::class, 'dashboard'])->name('seller.dashboard')->middleware('seller');
+    Route::get('/logout', [SellerController::class, 'logout'])->name('seller.logout')->middleware('seller');
+    Route::get('/register', [SellerController::class, 'registerShow'])->name('seller.register');
+    Route::post('/register/create', [SellerController::class, 'register'])->name('seller.register.create');
 });
 
 Route::get('/', function () {

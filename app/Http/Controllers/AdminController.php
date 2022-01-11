@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
@@ -35,6 +37,21 @@ class AdminController extends Controller
         auth()->guard('admin')->logout();
 
         return redirect()->route('login_from')->with('error', 'Admin Logout Successfully');
+    }
 
+    public function registerShow()
+    {
+        return view('admin.admin_register');
+    }
+
+    public function register(Request $request)
+    {
+        Admin::create($request->only([
+            'name',
+            'email',
+            'password',
+        ]));
+
+        return redirect()->route('login_from')->with('error', 'Admin Create Successfully');
     }
 }

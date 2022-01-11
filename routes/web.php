@@ -20,6 +20,8 @@ Route::prefix('admin')->group(function () {
     Route::post('/login/owner', [AdminController::class, 'login'])->name('admin.login');
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard')->middleware('admin');
     Route::get('/logout', [AdminController::class, 'logout'])->name('admin.logout')->middleware('admin');
+    Route::get('/register', [AdminController::class, 'registerShow'])->name('admin.register');
+    Route::post('/register/create', [AdminController::class, 'register'])->name('admin.register.create');
 });
 
 Route::get('/', function () {
